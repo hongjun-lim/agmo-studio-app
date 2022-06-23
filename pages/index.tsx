@@ -1,3 +1,9 @@
+import AgmoBanner from '../pages/assets/agmo-banner.svg';
+
 export default function Home() {
-  return <p className='text-indigo-500'>Hello World</p>;
+  return (
+    <>
+      <AgmoBanner />
+    </>
+  );
 }
