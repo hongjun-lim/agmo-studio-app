@@ -1,3 +1,9 @@
+import AgmoBanner from '../pages/assets/agmo-banner.svg';
+
 export default function Home() {
-  return <div className='bg-[url("/agmo-banner.svg")]'></div>;
+  return (
+    <>
+      <AgmoBanner />
+    </>
+  );
 }
