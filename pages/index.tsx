@@ -1,3 +1,3 @@
 export default function Home() {
-  return <p className='text-indigo-500'>Hello World</p>;
+  return <div className='bg-[url("/agmo-banner.svg")]'></div>;
 }
