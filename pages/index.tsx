@@ -33,6 +33,8 @@ export default function Home() {
 
   useEffect(() => {
     initialRoute();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
   function handleCheckbox() {
