@@ -4,9 +4,8 @@ module.exports = {
   theme: {
     extend: {
       margin: {
-        '430': '430px',
-        '490': '490px'
-      }
+        470: '470px',
+      },
     },
   },
   variants: {
