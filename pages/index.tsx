@@ -21,10 +21,6 @@ export default function Home() {
     password: Yup.string().min(8, 'Password must be minimum 8 characters').required('* Required field'),
   });
 
-  useEffect(() => {
-    initialRoute();
-  }, [router]);
-
   function initialRoute() {
     const user = localStorage.getItem('@user');
 
@@ -34,6 +30,10 @@ export default function Home() {
       router.push(initialRoute);
     }
   }
+
+  useEffect(() => {
+    initialRoute();
+  }, [router]);
 
   function handleCheckbox() {
     if (!isChecked) {
