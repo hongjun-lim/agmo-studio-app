@@ -21,40 +21,35 @@ export default function Home() {
     password: Yup.string().min(8, 'Password must be minimum 8 characters').required('* Required field'),
   });
 
-  useEffect(() => {
-    initialRoute();
-  }, [router]);
+  // useEffect(() => {
+  //   initialRoute();
+  // }, [router]);
 
-  function initialRoute() {
-    const user = localStorage.getItem('@user');
+  // function initialRoute() {
+  //   const user = localStorage.getItem('@user');
 
-    if (user) {
-      let initialRoute = DASHBOARD;
+  //   if (user) {
+  //     let initialRoute = DASHBOARD;
+  //     router.push(initialRoute);
+  //   }
+  // }
+
+  function handleCheckbox() {
+    if (!isChecked) {
       setIsChecked(true);
-      router.push(initialRoute);
+    } else {
+      setIsChecked(false);
     }
   }
-
-  const handleOnSignIn = async (data: { email: string; password: string }): Promise<boolean> => {
-    try {
-      const result = await userData;
-
-      return new Promise((resolve) => resolve(true));
-    } catch (error) {
-      console.log(error);
-    }
-
-    return new Promise((resolve) => resolve(false));
-  };
 
   const onSubmit = async (values: FormValues) => {
     const result = await userData;
 
     if (result.email === values.email) {
-      localStorage.setItem('@user', values.email);
+      localStorage.setItem('@user', JSON.stringify(values.email));
+
       const timeout = setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
-        setLoggedIn(true);
         clearTimeout(timeout);
       }, 1000);
     }
@@ -98,7 +93,7 @@ export default function Home() {
                 type='checkbox'
                 name='rememberMe'
                 className='mr-2 my-4 border-2'
-                onClick={handleOnSignIn}
+                onChange={handleCheckbox}
                 checked={isChecked}
               />
               <p className='mt-3 absolute left-7'>Remember Me</p>
