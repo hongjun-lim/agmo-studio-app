@@ -26,16 +26,17 @@ export default function Home() {
       {({ isSubmitting }) => (
         <div className='flex flex-col lg:flex-row justify-start '>
           <div className='bg-neutral-600 relative lg:w-7/12 h-48 lg:h-screen'>
-            <img src='/images/agmo-banner.svg' className='mix-blend-overlay absolute w-full h-full object-cover' />
+            <img src='/images/agmo-banner.svg' alt='' className='mix-blend-overlay absolute w-full h-full object-cover' />
             <img
               src='/images/agmo-logo.svg'
-              className='absolute object-cover mt-16 ml-28 w-40 lg:mt-96 lg:ml-470 lg:w-auto'
+              alt=''
+              className='absolute object-cover mt-14 ml-40 w-40 lg:mt-96 lg:ml-470 lg:w-auto'
             />
           </div>
           <div className='lg:mx-10 lg:basis-1/4'>
             <div className='font-semibold text-3xl px-10'>
               <p className='pt-32 lg:pt-64 pb-3'>Hello,</p>
-              <p className='pb-16'> Welcome Back</p>
+              <p className='pb-16'>Welcome Back</p>
             </div>
             <form className='px-10 lg:px-0 lg:ml-10'>
               <div className='flex flex-col justify-between'>
