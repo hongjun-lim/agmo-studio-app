@@ -21,18 +21,19 @@ export default function Home() {
     password: Yup.string().min(8, 'Password must be minimum 8 characters').required('* Required field'),
   });
 
-  // useEffect(() => {
-  //   initialRoute();
-  // }, [router]);
+  useEffect(() => {
+    initialRoute();
+  }, [router]);
 
-  // function initialRoute() {
-  //   const user = localStorage.getItem('@user');
+  function initialRoute() {
+    const user = localStorage.getItem('@user');
 
-  //   if (user) {
-  //     let initialRoute = DASHBOARD;
-  //     router.push(initialRoute);
-  //   }
-  // }
+    if (user) {
+      let initialRoute = DASHBOARD;
+
+      router.push(initialRoute);
+    }
+  }
 
   function handleCheckbox() {
     if (!isChecked) {
@@ -45,8 +46,12 @@ export default function Home() {
   const onSubmit = async (values: FormValues) => {
     const result = await userData;
 
-    if (result.email === values.email) {
-      localStorage.setItem('@user', JSON.stringify(values.email));
+    if (result) {
+      if (result.email === values.email) {
+        localStorage.setItem('@user', JSON.stringify(values.email));
+      }
+
+      initialRoute();
 
       const timeout = setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
