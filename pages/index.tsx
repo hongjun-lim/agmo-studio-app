@@ -1,5 +1,7 @@
 import { Formik, Field, ErrorMessage } from 'formik';
+import { useState } from 'react';
 import * as Yup from 'yup';
+import userData from './login.json';
 
 type FormValues = {
   email: string;
@@ -7,10 +9,41 @@ type FormValues = {
 };
 
 export default function Home() {
+  const [isChecked, setIsChecked] = useState(false);
+
+  const [getEmail, setEmail] = useState('');
   const ValidationSchema = Yup.object().shape({
     email: Yup.string().email('Email address format wrong').required('* Required field'),
     password: Yup.string().min(8, 'Password must be minimum 8 characters').required('* Required field'),
   });
+
+  function handleUserData(data: FormValues) {
+    if (data.email !== userData.email || data.password !== userData.password) {
+      alert('Email address or password incorrect');
+    } else {
+      alert('Login Success');
+      localStorage.setItem('@user', JSON.stringify(data));
+    }
+  }
+
+  function handleRememberMe() {
+    const user = localStorage.getItem('@user');
+    localStorage.setItem('@isChecked', JSON.stringify(isChecked));
+    const checkboxValue = localStorage.getItem('@isChecked');
+
+    if (user) {
+      const userDetail = JSON.parse(user);
+      setEmail(userDetail.email);
+    }
+    if (!isChecked) {
+      console.log(checkboxValue);
+      setIsChecked(true);
+    } else {
+      console.log(checkboxValue);
+      setIsChecked(false);
+      setEmail('');
+    }
+  }
 
   return (
     <Formik
@@ -23,10 +56,14 @@ export default function Home() {
         }, 400);
       }}
     >
-      {({ isSubmitting }) => (
+      {({ values }) => (
         <div className='flex flex-col lg:flex-row justify-start '>
           <div className='bg-neutral-600 relative lg:w-7/12 h-48 lg:h-screen'>
-            <img src='/images/agmo-banner.svg' alt='' className='mix-blend-overlay absolute w-full h-full object-cover' />
+            <img
+              src='/images/agmo-banner.svg'
+              alt=''
+              className='mix-blend-overlay absolute w-full h-full object-cover'
+            />
             <img
               src='/images/agmo-logo.svg'
               alt=''
@@ -43,18 +80,26 @@ export default function Home() {
                 <Field
                   type='email'
                   name='email'
+                  value={isChecked ? getEmail : values.email}
                   className='rounded-md bg-blue-100 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
                 />
                 <ErrorMessage name='email' render={(msg) => <span className='text-red-400'>{msg}</span>} />
                 <Field
                   type='password'
                   name='password'
+                  value={values.password}
                   className='rounded-md bg-blue-100 mt-5 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
                 />
                 <ErrorMessage name='password' render={(msg) => <span className='text-red-400'>{msg}</span>} />
               </div>
               <div className='flex flex-row justify-start relative'>
-                <input type='checkbox' name='remember' className='mr-2 my-4 border-2' />
+                <input
+                  type='checkbox'
+                  name='rememberMe'
+                  className='mr-2 my-4 border-2'
+                  onChange={handleRememberMe}
+                  checked={isChecked}
+                />
                 <p className='mt-3 absolute left-7'>Remember Me</p>
                 <a href='#' className='no-underline mt-3 absolute right-0'>
                   Forget Your Password?
@@ -62,9 +107,11 @@ export default function Home() {
               </div>
               <button
                 type='submit'
-                value='Submit'
+                value='name'
                 className='mt-10 border-solid border-2 border-black rounded-lg px-3 py-2 bg-black text-white font-semibold'
-                disabled={isSubmitting}
+                onClick={() => {
+                  handleUserData(values);
+                }}
               >
                 Log In
               </button>
