@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup';
 import userData from './api/login.json';
-import { DASHBOARD } from './settings/constants';
+import { DASHBOARD } from '../settings/constants';
 
 type FormValues = {
   email: string;
